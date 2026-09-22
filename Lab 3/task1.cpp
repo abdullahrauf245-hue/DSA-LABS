@@ -17,6 +17,8 @@ int main() {
             ch = ch + 32; // convert to lowercase
             clean = clean + ch;
         }
+    }
+
     // check palindrome using two pointers
     int left = 0;
     int right = clean.length() - 1;
@@ -30,6 +32,7 @@ int main() {
         left++;
         right--;
     }
+
     if (isPalindrome) {
         cout << s << " is a palindrome." << endl;
     } else {
