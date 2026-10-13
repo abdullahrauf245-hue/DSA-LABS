@@ -1,18 +1,3 @@
-/*
- * CS-250 Data Structures and Algorithms - Lab 6
- * Task 1: Expression Conversion and Evaluation
- *
- * Converts between infix / postfix / prefix and evaluates postfix / prefix.
- * The stack (stack.h) and token list (stringlist.h) are implemented from
- * scratch - std::stack, std::vector, std::deque etc. are NOT used.
- *
- * Operators : + - * / % ^      (^ is right-associative)
- * Operands  : numbers (multi-digit, decimals) and identifiers (A, x1, ...)
- * Note      : unary minus is not supported.
- *
- * Compile : g++ -std=c++17 -Wall -Wextra task1_expressions.cpp -o task1
- * Run     : ./task1
- */
 
 #include <cctype>
 #include <cmath>
@@ -24,22 +9,15 @@
 #include "stringlist.h"
 
 using namespace std;
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
 static bool isOperator(const string& t) {
     return t.size() == 1 && string("+-*/%^").find(t[0]) != string::npos;
 }
-
 static int precedence(const string& op) {
     if (op == "^") return 3;
     if (op == "*" || op == "/" || op == "%") return 2;
     if (op == "+" || op == "-") return 1;
     return 0;  // '(' and anything else
 }
-
-// Split an infix string into operands, operators and parentheses.
 static StringList tokenizeInfix(const string& expr) {
     StringList tokens;
     size_t i = 0;
@@ -98,13 +76,6 @@ static string joinTokens(const StringList& t) {
     }
     return out;
 }
-
-/*
- * Shunting-yard on a token list.
- * reversedMode = true is used for infix->prefix (the expression has been
- * reversed), where the associativity rule flips: left-associative operators
- * pop only on strictly higher precedence, '^' pops on >= precedence.
- */
 static StringList toPostfixTokens(const StringList& in, bool reversedMode) {
     StringList out;
     Stack<string> st;
@@ -168,18 +139,10 @@ static double toNumber(const string& tok) {
     return v;
 }
 
-// ---------------------------------------------------------------------------
-// Required functions
-// ---------------------------------------------------------------------------
-
-// A+B*C  ->  ABC*+
 string infix_to_postfix(string expr) {
     return joinTokens(toPostfixTokens(tokenizeInfix(expr), false));
 }
 
-// A+B*C  ->  +A*BC
-// Reverse the tokens, swap '(' and ')', convert to postfix with the flipped
-// associativity rule, then reverse the result.
 string infix_to_prefix(string expr) {
     StringList tokens = tokenizeInfix(expr);
     tokens.reverse();
@@ -252,9 +215,6 @@ double evaluate_prefix(string expr) {
     return st.pop();
 }
 
-// ---------------------------------------------------------------------------
-// Driver / tests
-// ---------------------------------------------------------------------------
 static int failures = 0;
 
 static void demo() {
