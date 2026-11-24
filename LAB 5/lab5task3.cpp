@@ -134,7 +134,7 @@ int main() {
             case 4: tr.moveForward(); break;
             case 5: tr.moveBackward(); break;
             case 6: tr.displayClockwise(); break;
-            case 7: tr.displayAnticlockwise(); break;
+            case 7: tr.displayAnticlockwise(); break;   
             case 8: cout << "Coach # to search: "; cin >> num; tr.search(num); break;
             case 9: tr.maxAvailable(); break;
             case 10: tr.displayCurrent(); break;

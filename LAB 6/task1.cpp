@@ -268,7 +268,6 @@ static void demo() {
         cout << "'4 0 /': runtime_error - " << ex.what() << "\n";
     }
 }
-
 int main() {
     demo();
     cout << "\n" << (failures == 0 ? "ALL TESTS PASSED" : "SOME TESTS FAILED") << "\n";
